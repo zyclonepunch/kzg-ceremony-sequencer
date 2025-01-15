@@ -68,13 +68,10 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Install rust
-        uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly
-          override: true
-      - name: Upgrade Rust
-        run: rustup default nightly
+          components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -108,14 +105,10 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Install rust
-        uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly
-          override: true
           components: llvm-tools-preview
-      - name: Upgrade Rust
-        run: rustup default nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -147,14 +140,9 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
-          toolchain: ${{ env.RUST_VERSION }}
-          default: true
-      - name: Upgrade Rust
-        run: rustup default nightly
+          toolchain: nightly
       - uses: actions-rs/audit-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -174,14 +162,10 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
-          toolchain: ${{ env.RUST_VERSION }}
-          default: true
-      - name: Upgrade Rust
-        run: rustup default nightly
+          toolchain: nightly
+          components: rustfmt, clippy
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
