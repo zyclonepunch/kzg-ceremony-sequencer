@@ -36,11 +36,7 @@ jobs:
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
       - name: Install Rust latest
-        run: rustup toolchain install nightly-2025-01-14
-      - name: Upgrade Rust
-        run: rustup default nightly-2025-01-14
-      - name: Update Path
-        run: dirname echo $(pwd)
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
       - name: Install rust
         uses: actions-rs/toolchain@v1
         with:
