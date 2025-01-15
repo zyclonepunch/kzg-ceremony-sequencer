@@ -80,7 +80,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-86-0
       # Cargo doc test is not included in `--all-targets`
       # See <https://github.com/rust-lang/cargo/issues/6669>
       # Cargo doc test also doesn't support `--no-run`, so we run it but
@@ -120,7 +120,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-86-0
       - name: Install cargo-tarpaulin
         run: |
           cargo install cargo-tarpaulin
@@ -197,7 +197,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: ${{ matrix.platform }}-cache-v1
+          key: ${{ matrix.platform }}-cache-v1-86-0
       - name: Build executable
         run: |
           case ${{ matrix.platform }} in
