@@ -8,8 +8,8 @@ authors = [
     "Marcin Kostrzewa <marcin@reilabs.io>",
     "Grzegorz Świrski <greg@reilabs.io>",
 ]
-homepage = "https://github.com/ethereum/kzg-ceremony-sequencer"
-repository = "https://github.com/ethereum/kzg-ceremony-sequencer"
+homepage = "https://github.com/zyclonepunch/kzg-ceremony-sequencer"
+repository = "https://github.com/zyclonepunch/kzg-ceremony-sequencer"
 edition = "2021"
 license-file = "./mit-license.md"
 keywords = ["cryptography"]

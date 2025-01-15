@@ -10,6 +10,6 @@ Downstream project maintainers and users can request participation in coordinati
 
 ## Security advisories
 
-The project team is committed to transparency in the security issue disclosure process. The project team announces security issues via [project Github Release notes](https://github.com/ethereum/kzg-ceremenoy-sequencer/releases) and the [RustSec advisory database](https://github.com/RustSec/advisory-db) (i.e. `cargo-audit`).
+The project team is committed to transparency in the security issue disclosure process. The project team announces security issues via [project Github Release notes](https://github.com/zyclonepunch/kzg-ceremenoy-sequencer/releases) and the [RustSec advisory database](https://github.com/RustSec/advisory-db) (i.e. `cargo-audit`).
 
 <!-- Based on https://github.com/tokio-rs/tokio/blob/tokio-1.13.0/SECURITY.md -->

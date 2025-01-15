@@ -1,16 +1,16 @@
 # KZG Ceremony Rest API
 
-![lines of code](https://img.shields.io/tokei/lines/github/ethereum/kzg-ceremony-sequencer)
-[![dependency status](https://deps.rs/repo/github/ethereum/kzg-ceremony-sequencer/status.svg)](https://deps.rs/repo/github/ethereum/kzg-ceremony-sequencer)
-[![codecov](https://codecov.io/gh/ethereum/kzg-ceremony-sequencer/branch/main/graph/badge.svg?token=WBPZ9U4TTO)](https://codecov.io/gh/ethereum/kzg-ceremony-sequencer)
-[![CI](https://github.com/ethereum/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml/badge.svg)](https://github.com/ethereum/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml)
+![lines of code](https://img.shields.io/tokei/lines/github/zyclonepunch/kzg-ceremony-sequencer)
+[![dependency status](https://deps.rs/repo/github/zyclonepunch/kzg-ceremony-sequencer/status.svg)](https://deps.rs/repo/github/zyclonepunch/kzg-ceremony-sequencer)
+[![codecov](https://codecov.io/gh/zyclonepunch/kzg-ceremony-sequencer/branch/main/graph/badge.svg?token=WBPZ9U4TTO)](https://codecov.io/gh/zyclonepunch/kzg-ceremony-sequencer)
+[![CI](https://github.com/zyclonepunch/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml/badge.svg)](https://github.com/zyclonepunch/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml)
 
 This implements [KZG Ceremony Specification](https://github.com/ethereum/kzg-ceremony-specs).
 
-The latest build is available as a container on [ethereum/kzg-ceremony-sequencer](https://hub.docker.com/repository/docker/ethereum/kzg-ceremony-sequencer/general):
+The latest build is available as a container on [zyclonepunch/kzg-ceremony-sequencer](https://hub.docker.com/repository/docker/zyclonepunch/kzg-ceremony-sequencer/general):
 
 ```shell
-docker run ethereum/kzg-ceremony-sequencer:latest
+docker run zyclonepunch/kzg-ceremony-sequencer:latest
 ```
 
 ## Setup
@@ -23,11 +23,11 @@ cargo fmt && cargo clippy --workspace --all-targets --all-features && cargo buil
 
 ## Requirements
 
-- OAuth Client App : Currently we require users to sign in with either Ethereum or Github, which requires an OAuth client application that the user gives read access to their profile to.
+-   OAuth Client App : Currently we require users to sign in with either Ethereum or Github, which requires an OAuth client application that the user gives read access to their profile to.
 
 ## Live URL
 
-- <https://kzg-ceremony-sequencer-dev.fly.dev/info/status>
+-   <https://kzg-ceremony-sequencer-dev.fly.dev/info/status>
 
 ## Registering for GitHub OAuth
 
@@ -47,14 +47,14 @@ curl -X POST https://oidc.signinwithethereum.org/register \
 
 ```json
 {
-  "client_id": "9b49de48-d198-47e7-afff-7ee26cbcbc95",
-  "client_secret": "...",
-  "registration_access_token": "....",
-  "registration_client_uri": "https://oidc.signinwithethereum.org/client/9b49de48-d198-47e7-afff-7ee26cbcbc95",
-  "redirect_uris": [
-    "http://127.0.0.1:3000/auth/callback/eth",
-    "https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/eth"
-  ]
+    "client_id": "9b49de48-d198-47e7-afff-7ee26cbcbc95",
+    "client_secret": "...",
+    "registration_access_token": "....",
+    "registration_client_uri": "https://oidc.signinwithethereum.org/client/9b49de48-d198-47e7-afff-7ee26cbcbc95",
+    "redirect_uris": [
+        "http://127.0.0.1:3000/auth/callback/eth",
+        "https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/eth"
+    ]
 }
 ```
 
@@ -67,5 +67,5 @@ fly secrets set GH_CLIENT_SECRET="..."
 fly volumes create kzg_ceremony_sequencer_dev_data --size 5
 ```
 
-* Fly server: <https://kzg-ceremony-sequencer-dev.fly.dev/info/status>
-* Fly dashboard: <https://fly.io/apps/kzg-ceremony-sequencer-dev>
+-   Fly server: <https://kzg-ceremony-sequencer-dev.fly.dev/info/status>
+-   Fly dashboard: <https://fly.io/apps/kzg-ceremony-sequencer-dev>

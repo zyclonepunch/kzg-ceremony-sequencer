@@ -270,14 +270,14 @@ jobs:
       - name: Push commit tag
         run: |
           docker pull $IMAGE_ID
-          docker tag $IMAGE_ID ethereum/kzg-ceremony-sequencer:${{ github.sha }}
-          docker push ethereum/kzg-ceremony-sequencer:${{ github.sha }}
+          docker tag $IMAGE_ID zyclonepunch/kzg-ceremony-sequencer:${{ github.sha }}
+          docker push zyclonepunch/kzg-ceremony-sequencer:${{ github.sha }}
       - name: Push latest tag
         if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
         run: |
           docker pull $IMAGE_ID
-          docker tag $IMAGE_ID ethereum/kzg-ceremony-sequencer:latest
-          docker push ethereum/kzg-ceremony-sequencer:latest
+          docker tag $IMAGE_ID zyclonepunch/kzg-ceremony-sequencer:latest
+          docker push zyclonepunch/kzg-ceremony-sequencer:latest
 
   deploy_on_fly:
     name: Deploy on fly.io
