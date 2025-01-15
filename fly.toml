@@ -1,12 +1,12 @@
 # See <https://fly.io/docs/reference/configuration>
 
-app = "kzg-ceremony-sequencer-dev"
+app = "kzg-ceremony-sequencer-369-dev"
 kill_signal = "SIGINT"
 kill_timeout = 30 # Seconds
 processes = []
 
 [build]
-    image = "zyclonepunch/kzg-ceremony-sequencer:latest"
+    image = "zyclonepunch/kzg-ceremony-sequencer-369:latest"
 
 [[mounts]]
     source = "kzg_ceremony_sequencer_dev_data"
@@ -14,8 +14,8 @@ processes = []
 
 [env]
     VERBOSE="3"
-    GH_REDIRECT_URL="https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/github"
-    ETH_REDIRECT_URL="https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/eth"
+    GH_REDIRECT_URL="https://kzg-ceremony-sequencer-369-dev.fly.dev/auth/callback/github"
+    ETH_REDIRECT_URL="https://kzg-ceremony-sequencer-369-dev.fly.dev/auth/callback/eth"
     ETH_MIN_NONCE="0"
     MULTI_CONTRIBUTION="true"
     COMPUTE_DEADLINE="480"

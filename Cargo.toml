@@ -1,5 +1,5 @@
 [package]
-name = "kzg-ceremony-sequencer"
+name = "kzg-ceremony-sequencer-369"
 version = "0.1.0"
 description = "Implementation of the Ethereum KZG Ceremony specification sequencer"
 authors = [

@@ -42,7 +42,7 @@ To register, use the REST API:
 ```shell
 curl -X POST https://oidc.signinwithethereum.org/register \
    -H 'Content-Type: application/json' \
-   -d '{"redirect_uris": ["http://127.0.0.1:3000/auth/callback/eth", "https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/eth"]}'
+   -d '{"redirect_uris": ["http://127.0.0.1:3000/auth/callback/eth", "https://kzg-ceremony-sequencer-369-dev.fly.dev/auth/callback/eth"]}'
 ```
 
 ```json
@@ -53,7 +53,7 @@ curl -X POST https://oidc.signinwithethereum.org/register \
     "registration_client_uri": "https://oidc.signinwithethereum.org/client/9b49de48-d198-47e7-afff-7ee26cbcbc95",
     "redirect_uris": [
         "http://127.0.0.1:3000/auth/callback/eth",
-        "https://kzg-ceremony-sequencer-dev.fly.dev/auth/callback/eth"
+        "https://kzg-ceremony-sequencer-369-dev.fly.dev/auth/callback/eth"
     ]
 }
 ```
@@ -67,5 +67,5 @@ fly secrets set GH_CLIENT_SECRET="..."
 fly volumes create kzg_ceremony_sequencer_dev_data --size 5
 ```
 
--   Fly server: <https://kzg-ceremony-sequencer-dev.fly.dev/info/status>
--   Fly dashboard: <https://fly.io/apps/kzg-ceremony-sequencer-dev>
+-   Fly server: <https://kzg-ceremony-sequencer-369-dev.fly.dev/info/status>
+-   Fly dashboard: <https://fly.io/apps/kzg-ceremony-sequencer-369-dev>
