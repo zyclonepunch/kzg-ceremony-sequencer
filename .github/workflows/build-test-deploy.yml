@@ -35,11 +35,9 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Install rust
-        uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ env.NIGHTLY_VERSION }}
-          override: true
           components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
