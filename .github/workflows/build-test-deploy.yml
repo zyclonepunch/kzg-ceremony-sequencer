@@ -45,7 +45,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-86-0
       - name: Check formatting
         uses: actions-rs/cargo@v1
         with:
