@@ -123,7 +123,7 @@ jobs:
           key: cache-v1
       - name: Install cargo-tarpaulin
         run: |
-          cargo install --locked cargo-tarpaulin
+          cargo install --locked cargo-tarpaulin --version 0.25.2
       - name: Generate RSA Test Keys
         run: |
           openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out private.key
