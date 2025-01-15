@@ -37,7 +37,7 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          toolchain: nightly
           components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
