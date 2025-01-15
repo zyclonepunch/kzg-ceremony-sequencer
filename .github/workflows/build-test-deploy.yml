@@ -42,8 +42,10 @@ jobs:
           toolchain: ${{ env.NIGHTLY_VERSION }}
           override: true
           components: rustfmt, clippy
+      - name: Install Rust latest
+        run: rustup toolchain install nightly-2025-01-14
       - name: Upgrade Rust
-        run: rustup default nightly
+        run: rustup default nightly-2025-01-14
       - name: Update Path
         run: dirname echo $(pwd)
       - name: Cache build
