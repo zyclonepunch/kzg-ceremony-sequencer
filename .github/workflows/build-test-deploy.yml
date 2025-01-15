@@ -20,7 +20,7 @@ jobs:
   accept:
     name: Accept
     runs-on: ubuntu-latest
-    needs: [ lint, test, build_and_push, image_manifest ]
+    needs: [lint, test, build_and_push, image_manifest]
     steps:
       - name: Accept
         run: true
@@ -123,7 +123,7 @@ jobs:
           key: cache-v1
       - name: Install cargo-tarpaulin
         run: |
-          cargo install cargo-tarpaulin
+          cargo install --locked cargo-tarpaulin
       - name: Generate RSA Test Keys
         run: |
           openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out private.key
@@ -163,7 +163,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [ amd64, arm64 ]
+        platform: [amd64, arm64]
     env:
       FEATURES: mimalloc
     steps:
@@ -223,13 +223,12 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: BIN=${{ env.BIN }}
       - name: Test image
-        run:
-          docker run --pull always --platform linux/${{ matrix.platform }} --rm $IMAGE_ID-${{ matrix.platform }} --version
+        run: docker run --pull always --platform linux/${{ matrix.platform }} --rm $IMAGE_ID-${{ matrix.platform }} --version
 
   image_manifest:
     name: Image manifest
     runs-on: ubuntu-latest
-    needs: [ build_and_push ]
+    needs: [build_and_push]
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -253,7 +252,7 @@ jobs:
   push_to_docker:
     name: Push to Docker Hub
     runs-on: ubuntu-latest
-    needs: [ image_manifest ]
+    needs: [image_manifest]
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -282,7 +281,7 @@ jobs:
   deploy_on_fly:
     name: Deploy on fly.io
     runs-on: ubuntu-latest
-    needs: [ push_to_docker ]
+    needs: [push_to_docker]
     if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout
