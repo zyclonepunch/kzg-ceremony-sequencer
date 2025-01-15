@@ -6,7 +6,7 @@ use chrono::{DateTime, FixedOffset};
 use clap::Parser;
 use ethers_signers::LocalWallet;
 use kzg_ceremony_crypto::BatchTranscript;
-use kzg_ceremony_sequencer::{io::read_json_file, start_server, Options};
+use kzg_ceremony_sequencer_369::{io::read_json_file, start_server, Options};
 use rand::thread_rng;
 use std::{path::PathBuf, time::Duration};
 use tempfile::{tempdir, TempDir};

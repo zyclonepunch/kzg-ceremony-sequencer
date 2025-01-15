@@ -1,5 +1,5 @@
 use cli_batteries::version;
-use kzg_ceremony_sequencer::async_main;
+use kzg_ceremony_sequencer_369::async_main;
 
 #[allow(dead_code)] // Entry point
 fn main() {
