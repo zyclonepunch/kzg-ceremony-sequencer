@@ -44,6 +44,8 @@ jobs:
           components: rustfmt, clippy
       - name: Upgrade Rust
         run: rustup default nightly
+      - name: Update Path
+        run: dirname echo $(pwd)
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
