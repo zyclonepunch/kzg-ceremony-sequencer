@@ -157,6 +157,7 @@ jobs:
       - uses: actions-rs/audit-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          args: --locked
 
   build_and_push:
     name: Build image
