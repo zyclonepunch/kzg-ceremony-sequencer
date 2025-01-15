@@ -154,10 +154,8 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_VERSION }}
           default: true
-      - uses: actions-rs/audit-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --locked
+      - run: cargo install cargo-audit --locked
+      - run: cargo audit
 
   build_and_push:
     name: Build image
