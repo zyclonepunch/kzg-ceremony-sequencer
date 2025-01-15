@@ -142,8 +142,7 @@ impl AuthState {
             .read()
             .await
             .users
-            .get(&auth_code)
-            .map(Clone::clone)
+            .get(&auth_code).cloned()
     }
 
     pub async fn get_eth_user(&self, auth_code: u64) -> Option<EthUser> {
@@ -151,8 +150,7 @@ impl AuthState {
             .read()
             .await
             .users
-            .get(&auth_code)
-            .map(Clone::clone)
+            .get(&auth_code).cloned()
     }
 }
 
@@ -176,7 +174,7 @@ async fn exchange_gh_token(
                 "expires_in": 60
             })),
         ),
-        None => (
+        _none => (
             StatusCode::NOT_FOUND,
             Json(json!({"error": "Invalid code"})),
         ),
@@ -198,7 +196,7 @@ async fn exchange_eth_token(
                 "expires_in": 60
             })),
         ),
-        None => (
+        _none => (
             StatusCode::NOT_FOUND,
             Json(json!({"error": "Invalid code"})),
         ),
@@ -222,7 +220,7 @@ async fn gh_userinfo(
             StatusCode::OK,
             Json(json!({"login": user.name, "created_at": user.created_at, "id": code})),
         ),
-        None => (
+        _none => (
             StatusCode::UNAUTHORIZED,
             Json(json!({"error": "Invalid auth token"})),
         ),
@@ -248,7 +246,7 @@ async fn eth_userinfo(
                 "sub": format!("eip155:1:0x{}", hex::encode(user.address().0))
             })),
         ),
-        None => (
+        _none => (
             StatusCode::UNAUTHORIZED,
             Json(json!({"error": "Invalid auth token"})),
         ),

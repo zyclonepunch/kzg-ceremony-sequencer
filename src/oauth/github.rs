@@ -9,39 +9,39 @@ pub struct GithubAuthOptions {
     /// The latest date a Github account can have been created in order to
     /// participate.
     #[clap(long, env, default_value = "2025-01-14T00:00:00Z")]
-    pub gh_max_account_creation_time: DateTime<FixedOffset>,
+    pub max_account_creation_time: DateTime<FixedOffset>,
 
-    /// Github OAuth2 authorization url.
+    /// Github `OAuth2` authorization url.
     #[clap(long, env, default_value = "https://github.com/login/oauth/authorize")]
-    pub gh_auth_url: String,
+    pub auth_url: String,
 
-    /// Github OAuth2 token url.
+    /// Github `OAuth2` token url.
     #[clap(
         long,
         env,
         default_value = "https://github.com/login/oauth/access_token"
     )]
-    pub gh_token_url: String,
+    pub token_url: String,
 
-    /// Github OAuth2 user info url.
+    /// Github `OAuth2` user info url.
     #[clap(long, env, default_value = "https://api.github.com/user")]
-    pub gh_userinfo_url: String,
+    pub userinfo_url: String,
 
-    /// Github OAuth2 callback redirect url.
+    /// Github `OAuth2` callback redirect url.
     #[clap(
         long,
         env,
         default_value = "http://127.0.0.1:3000/auth/callback/github"
     )]
-    pub gh_redirect_url: String,
+    pub redirect_url: String,
 
-    /// Github OAuth2 client access id.
+    /// Github `OAuth2` client access id.
     #[clap(long, env)]
-    pub gh_client_id: Secret,
+    pub client_id: Secret,
 
-    /// Github OAuth2 client access key.
+    /// Github `OAuth2` client access key.
     #[clap(long, env)]
-    pub gh_client_secret: Secret,
+    pub client_secret: Secret,
 }
 
 #[derive(Clone)]
@@ -60,13 +60,13 @@ impl Deref for GithubOAuthClient {
 pub fn github_oauth_client(options: &GithubAuthOptions) -> GithubOAuthClient {
     GithubOAuthClient {
         client: BasicClient::new(
-            ClientId::new(options.gh_client_id.get_secret().to_owned()),
+            ClientId::new(options.client_id.get_secret().to_owned()),
             Some(ClientSecret::new(
-                options.gh_client_secret.get_secret().to_owned(),
+                options.client_secret.get_secret().to_owned(),
             )),
-            AuthUrl::new(options.gh_auth_url.clone()).unwrap(),
-            Some(TokenUrl::new(options.gh_token_url.clone()).unwrap()),
+            AuthUrl::new(options.auth_url.clone()).unwrap(),
+            Some(TokenUrl::new(options.token_url.clone()).unwrap()),
         )
-        .set_redirect_uri(RedirectUrl::new(options.gh_redirect_url.clone()).unwrap()),
+        .set_redirect_uri(RedirectUrl::new(options.redirect_url.clone()).unwrap()),
     }
 }

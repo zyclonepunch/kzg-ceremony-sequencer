@@ -7,53 +7,53 @@ use std::{num::ParseIntError, ops::Deref};
 pub struct EthAuthOptions {
     /// The block height where the users nonce is fetched from.
     #[clap(long, env, value_parser = dec_to_hex, default_value = "15565180")]
-    pub eth_nonce_verification_block: String,
+    pub nonce_verification_block: String,
 
     /// The minimum nonce required at the specified block height in order to
     /// participate.
     #[clap(long, env, default_value = "4")]
-    pub eth_min_nonce: u64,
+    pub min_nonce: u64,
 
     /// The Ethereum JSON-RPC endpoint to use.
-    /// Defaults to the AllThatNode public node for testing.
+    /// Defaults to the `AllThatNode` public node for testing.
     #[clap(
         long,
         env,
         default_value = "https://ethereum-mainnet-rpc.allthatnode.com"
     )]
-    pub eth_rpc_url: Secret,
+    pub rpc_url: Secret,
 
-    /// Sign-in-with-Ethereum OAuth2 authorization url.
+    /// Sign-in-with-Ethereum `OAuth2` authorization url.
     #[clap(
         long,
         env,
         default_value = "https://oidc.signinwithethereum.org/authorize"
     )]
-    pub eth_auth_url: String,
+    pub auth_url: String,
 
-    /// Sign-in-with-Ethereum OAuth2 token url.
+    /// Sign-in-with-Ethereum `OAuth2` token url.
     #[clap(long, env, default_value = "https://oidc.signinwithethereum.org/token")]
-    pub eth_token_url: String,
+    pub token_url: String,
 
-    /// Sign-in-with-Ethereum OAuth2 user info url.
+    /// Sign-in-with-Ethereum `OAuth2` user info url.
     #[clap(
         long,
         env,
         default_value = "https://oidc.signinwithethereum.org/userinfo"
     )]
-    pub eth_userinfo_url: String,
+    pub userinfo_url: String,
 
-    /// Sign-in-with-Ethereum OAuth2 callback redirect url.
+    /// Sign-in-with-Ethereum `OAuth2` callback redirect url.
     #[clap(long, env, default_value = "http://127.0.0.1:3000/auth/callback/eth")]
-    pub eth_redirect_url: String,
+    pub redirect_url: String,
 
-    /// Sign-in-with-Ethereum OAuth2 client access id.
+    /// Sign-in-with-Ethereum `OAuth2` client access id.
     #[clap(long, env)]
-    pub eth_client_id: Secret,
+    pub client_id: Secret,
 
-    /// Sign-in-with-Ethereum OAuth2 client access key.
+    /// Sign-in-with-Ethereum `OAuth2` client access key.
     #[clap(long, env)]
-    pub eth_client_secret: Secret,
+    pub client_secret: Secret,
 }
 
 #[derive(Clone)]

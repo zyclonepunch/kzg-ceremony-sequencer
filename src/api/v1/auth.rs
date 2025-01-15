@@ -95,7 +95,7 @@ impl IntoResponse for UserVerifiedResponse {
                     .append_pair("exp", &self.id_token.exp.to_string());
                 Redirect::to(redirect_url.as_str()).into_response()
             }
-            None => Json(json!({
+            _none => Json(json!({
                 "id_token" : {
                     "sub": &self.id_token.identity.unique_id(),
                     "nickname": &self.id_token.identity.nickname(),
@@ -255,7 +255,7 @@ pub async fn github_callback(
         })?;
 
     let response = http_client
-        .get(options.github.gh_userinfo_url)
+        .get(options.github.userinfo_url)
         .bearer_auth(token.access_token().secret())
         .header("User-Agent", "ethereum-kzg-ceremony-sequencer")
         .send()
@@ -273,7 +273,7 @@ pub async fn github_callback(
             redirect: payload.redirect_to.clone(),
             payload:  AuthErrorPayload::CouldNotExtractUserData,
         })?;
-    if creation_time > options.github.gh_max_account_creation_time {
+    if creation_time > options.github.max_account_creation_time {
         return Err(AuthError {
             redirect: payload.redirect_to.clone(),
             payload:  AuthErrorPayload::UserCreatedAfterDeadline,
@@ -328,7 +328,7 @@ pub async fn eth_callback(
         })?;
 
     let response = http_client
-        .get(&options.ethereum.eth_userinfo_url)
+        .get(&options.ethereum.userinfo_url)
         .bearer_auth(token.access_token().secret())
         .send()
         .await
@@ -354,7 +354,7 @@ pub async fn eth_callback(
 
     let tx_count = get_tx_count(
         &address,
-        &options.ethereum.eth_nonce_verification_block,
+        &options.ethereum.nonce_verification_block,
         &http_client,
         &options.ethereum,
     )
@@ -367,7 +367,7 @@ pub async fn eth_callback(
         }
     })?;
 
-    if tx_count < options.ethereum.eth_min_nonce {
+    if tx_count < options.ethereum.min_nonce {
         return Err(AuthError {
             redirect: payload.redirect_to.clone(),
             payload:  AuthErrorPayload::UserCreatedAfterDeadline,
@@ -405,7 +405,7 @@ async fn get_tx_count(
     });
 
     let rpc_response = client
-        .post(options.eth_rpc_url.get_secret())
+        .post(options.rpc_url.get_secret())
         .json(&rpc_payload)
         .send()
         .await?;

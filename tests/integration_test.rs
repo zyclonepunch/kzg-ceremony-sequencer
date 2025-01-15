@@ -192,9 +192,9 @@ async fn test_gh_auth_with_custom_frontend_redirect() {
     assert_eq!(params["sub"], user.identity().to_string());
     assert_eq!(params["nickname"], "kustosz");
     assert_eq!(params["provider"], "Github");
-    assert!(params.get("session_id").is_some());
-    assert!(params.get("exp").is_some());
-    assert!(params.get("error").is_none());
+    assert!(params.contains_key("session_id"));
+    assert!(params.contains_key("exp"));
+    assert!(!params.contains_key("error"));
 }
 
 #[tokio::test]
@@ -229,8 +229,8 @@ async fn test_gh_auth_errors_with_custom_frontend_redirect() {
     assert_eq!(redirected_to.host_str(), Some("my.magical.frontend"));
     assert_eq!(redirected_to.path(), "/post-sign-in");
     let params: HashMap<_, _> = redirected_to.query_pairs().into_owned().collect();
-    assert!(params.get("code").is_some());
-    assert!(params.get("error").is_some());
+    assert!(params.contains_key("code"));
+    assert!(params.contains_key("error"));
 }
 
 #[tokio::test]
@@ -464,7 +464,7 @@ async fn test_large_lobby_with_slow_compute_users() {
     let harness = Arc::new(run_test_harness().await);
     let client = Arc::new(reqwest::Client::new());
     let n = 20;
-    let handles = (0..n).into_iter().map(|i| {
+    let handles = (0..n).map(|i| {
         let h = harness.clone();
         let c = client.clone();
         tokio::spawn(async move {
@@ -507,7 +507,7 @@ async fn test_various_contributors() {
     let harness = Arc::new(harness);
     let client = Arc::new(reqwest::Client::new());
     let n = 40;
-    let handles = (0..n).into_iter().map(|i| {
+    let handles = (0..n).map(|i| {
         let h = harness.clone();
         let c = client.clone();
         tokio::spawn(async move {
@@ -644,7 +644,7 @@ async fn test_graceful_restart() {
     let harness = Arc::new(RwLock::new(run_test_harness().await));
     let client = Arc::new(reqwest::Client::new());
     let n = 10;
-    let handles = (0..n).into_iter().map(|i| {
+    let handles = (0..n).map(|i| {
         let h = harness.clone();
         let c = client.clone();
         tokio::spawn(async move {
@@ -672,7 +672,7 @@ async fn test_graceful_restart() {
         h.start().await;
     }
 
-    let handles = (0..n).into_iter().map(|i| {
+    let handles = (0..n).map(|i| {
         let h = harness.clone();
         let c = client.clone();
         tokio::spawn(async move {

@@ -157,16 +157,15 @@ impl SharedLobbyState {
         &self,
         participant: &SessionId,
     ) -> Result<SessionInfo, ActiveContributorError> {
-        let mut state = self.inner.lock().await;
 
-        match &state.active_contributor {
+        match &self.inner.lock().await.active_contributor {
             ActiveContributor::AwaitingContribution {
                 session: info_with_id,
                 ..
             } if &info_with_id.id == participant => {
                 let next_state = ActiveContributor::Contributing(info_with_id.clone());
                 let info = info_with_id.info.clone();
-                state.active_contributor = next_state;
+                self.inner.lock().await.active_contributor = next_state;
                 Ok(info)
             }
             _ => Err(ActiveContributorError::NotUsersTurn),
@@ -177,14 +176,13 @@ impl SharedLobbyState {
         &self,
         participant: &SessionId,
     ) -> Result<(), ActiveContributorError> {
-        let mut state = self.inner.lock().await;
 
-        if !matches!(&state.active_contributor, ActiveContributor::AwaitingContribution { session: x, .. } if &x.id == participant)
+        if !matches!(&self.inner.lock().await.active_contributor, ActiveContributor::AwaitingContribution { session: x, .. } if &x.id == participant)
         {
             return Err(ActiveContributorError::NotUsersTurn);
         }
 
-        state.active_contributor = ActiveContributor::None;
+        self.inner.lock().await.active_contributor = ActiveContributor::None;
 
         Ok(())
     }
@@ -200,7 +198,7 @@ impl SharedLobbyState {
         let sessions_to_remove = lobby_state
             .sessions_in_lobby
             .iter()
-            .filter_map(|(id, info)| predicate(info).then(|| id.clone()))
+            .filter(|&(_id, info)| predicate(info)).map(|(id, _info)| id.clone())
             .collect::<Vec<_>>();
         for id in sessions_to_remove {
             let info = lobby_state.sessions_in_lobby.remove(&id);
@@ -245,20 +243,19 @@ impl SharedLobbyState {
         session_id: SessionId,
         session_info: SessionInfo,
     ) -> Result<(), ActiveContributorError> {
-        let mut state = self.inner.lock().await;
 
-        let is_active_contributor = match &state.active_contributor {
+        let is_active_contributor = match &self.inner.lock().await.active_contributor {
             ActiveContributor::None => false,
             ActiveContributor::AwaitingContribution { session: info, .. }
             | ActiveContributor::Contributing(info) => info.id == session_id,
         };
-        let is_in_lobby = state.sessions_in_lobby.contains_key(&session_id);
+        let is_in_lobby = self.inner.lock().await.sessions_in_lobby.contains_key(&session_id);
 
         if is_active_contributor || is_in_lobby {
             return Ok(());
         }
 
-        let sessions = &mut state.sessions_out_of_lobby;
+        let sessions = &mut self.inner.lock().await.sessions_out_of_lobby;
         if sessions.len() >= self.options.max_sessions_count && !sessions.contains_key(&session_id)
         {
             return Err(ActiveContributorError::SessionCountLimitExceeded);
@@ -269,12 +266,10 @@ impl SharedLobbyState {
     }
 
     pub async fn enter_lobby(&self, session_id: &SessionId) -> Result<(), ActiveContributorError> {
-        let mut state = self.inner.lock().await;
-
         // If session is not in sessions_out_of_lobby, it was already moved to lobby or
         // to active contributor state
-        if let Some(session) = state.sessions_out_of_lobby.remove(session_id) {
-            let lobby = &mut state.sessions_in_lobby;
+        if let Some(session) = self.inner.lock().await.sessions_out_of_lobby.remove(session_id) {
+            let lobby = &mut self.inner.lock().await.sessions_in_lobby;
 
             if lobby.len() >= self.options.max_lobby_size {
                 return Err(ActiveContributorError::LobbySizeLimitExceeded);
@@ -322,11 +317,10 @@ impl SharedLobbyState {
         &self,
         session_id: &SessionId,
     ) -> Result<(), ActiveContributorError> {
-        let mut lobby_state = self.inner.lock().await;
         if let ActiveContributor::AwaitingContribution {
             session,
             last_contribution_file_request,
-        } = &mut lobby_state.active_contributor
+        } = &mut self.inner.lock().await.active_contributor
         {
             if &session.id == session_id {
                 if last_contribution_file_request.elapsed() < self.options.min_checkin_delay() {
