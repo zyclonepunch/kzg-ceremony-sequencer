@@ -137,7 +137,9 @@ mod tests {
 
     pub fn arb_scalar() -> impl Strategy<Value = blst_scalar> {
         any::<U256>().prop_map(|mut n| {
-            n %= uint!(52435875175126190479447740508185965837690552500527637822603658699938581184513_U256);
+            n %= uint!(
+                52435875175126190479447740508185965837690552500527637822603658699938581184513_U256
+            );
             let mut scalar = blst_scalar::default();
             unsafe {
                 blst_scalar_from_lendian(&mut scalar, n.as_le_slice().as_ptr());

@@ -164,9 +164,12 @@ mod tests {
         let from_null = serde_json::from_str::<OptionalBytes>("null").unwrap();
         assert_eq!(from_null, OptionalBytes(None));
         let from_missing_inner = serde_json::from_str::<ContainsOptionalBytes>(r#"{}"#).unwrap();
-        assert_eq!(from_missing_inner, ContainsOptionalBytes {
-            option: OptionalBytes(None),
-        });
+        assert_eq!(
+            from_missing_inner,
+            ContainsOptionalBytes {
+                option: OptionalBytes(None),
+            }
+        );
         let from_correct_input = serde_json::from_str::<OptionalBytes>(r#""0x1234""#).unwrap();
         assert_eq!(from_correct_input, OptionalBytes(Some([0x12, 0x34])));
         let from_wrong_length = serde_json::from_str::<OptionalBytes>(r#""0x123""#);

@@ -36,10 +36,10 @@ impl Transcript {
         assert!(num_g2 >= 2);
         assert!(num_g1 >= num_g2);
         Self {
-            powers:  Powers::new(num_g1, num_g2),
+            powers: Powers::new(num_g1, num_g2),
             witness: Witness {
-                products:   vec![G1::one()],
-                pubkeys:    vec![G2::one()],
+                products: vec![G1::one()],
+                pubkeys: vec![G2::one()],
                 signatures: vec![BlsSignature::empty()],
             },
         }
@@ -61,8 +61,8 @@ impl Transcript {
     #[must_use]
     pub fn contribution(&self) -> Contribution {
         Contribution {
-            powers:        self.powers.clone(),
-            pot_pubkey:    G2::one(),
+            powers: self.powers.clone(),
+            pot_pubkey: G2::one(),
             bls_signature: BlsSignature::empty(),
         }
     }
@@ -176,11 +176,11 @@ mod test {
         let transcript = Transcript::new(2, 2);
         let point_not_in_g1 = G1(hex!("800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"));
         let bad_g1_contribution = Contribution {
-            powers:        Powers {
+            powers: Powers {
                 g1: vec![point_not_in_g1, point_not_in_g1],
                 g2: vec![G2::zero(), G2::zero()],
             },
-            pot_pubkey:    G2::zero(),
+            pot_pubkey: G2::zero(),
             bls_signature: BlsSignature::empty(),
         };
         let result = transcript
@@ -196,11 +196,11 @@ mod test {
         let point_not_in_g2 = G2(hex!("a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002"));
 
         let bad_g2_contribution = Contribution {
-            powers:        Powers {
+            powers: Powers {
                 g1: vec![G1::zero(), G1::zero()],
                 g2: vec![point_not_in_g2, point_not_in_g2],
             },
-            pot_pubkey:    G2::zero(),
+            pot_pubkey: G2::zero(),
             bls_signature: BlsSignature::empty(),
         };
         let result = transcript
@@ -234,11 +234,11 @@ mod test {
                 .into_affine(),
         );
         let bad_pot_pubkey = Contribution {
-            powers:        Powers {
+            powers: Powers {
                 g1: vec![g1_gen, g1_elem],
                 g2: vec![g2_gen, g2_elem],
             },
-            pot_pubkey:    pubkey,
+            pot_pubkey: pubkey,
             bls_signature: BlsSignature::empty(),
         };
         assert_eq!(
@@ -265,12 +265,12 @@ mod test {
             .mul(Fr::from(2))
             .into_affine();
         let contribution = Contribution {
-            powers:        Powers {
+            powers: Powers {
                 // Pretend Tau is 2, but make the third element g1^3 instead of g1^4.
                 g1: vec![G1::from(g1_1), G1::from(g1_2), G1::from(g1_3)],
                 g2: vec![G2::from(g2_1), G2::from(g2_2)],
             },
-            pot_pubkey:    G2::from(g2_2),
+            pot_pubkey: G2::from(g2_2),
             bls_signature: BlsSignature::empty(),
         };
         assert_eq!(
@@ -300,12 +300,12 @@ mod test {
             .mul(Fr::from(3))
             .into_affine();
         let contribution = Contribution {
-            powers:        Powers {
+            powers: Powers {
                 g1: vec![G1::from(g1_1), G1::from(g1_2), G1::from(g1_4)],
                 // Pretend Tau is 2, but make the third element g2^3 instead of g2^4.
                 g2: vec![G2::from(g2_1), G2::from(g2_2), G2::from(g2_3)],
             },
-            pot_pubkey:    G2::from(g2_2),
+            pot_pubkey: G2::from(g2_2),
             bls_signature: BlsSignature::empty(),
         };
         assert_eq!(

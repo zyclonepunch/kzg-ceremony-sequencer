@@ -118,7 +118,7 @@ impl<'de> Deserialize<'de> for EcdsaSignature {
 pub struct PubkeyTypedData {
     num_g1_powers: usize,
     num_g2_powers: usize,
-    pot_pubkey:    G2,
+    pot_pubkey: G2,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -136,7 +136,7 @@ impl From<&BatchContribution> for ContributionTypedData {
                 .map(|c| PubkeyTypedData {
                     num_g1_powers: c.powers.g1.len(),
                     num_g2_powers: c.powers.g2.len(),
-                    pot_pubkey:    c.pot_pubkey,
+                    pot_pubkey: c.pot_pubkey,
                 })
                 .collect(),
         }

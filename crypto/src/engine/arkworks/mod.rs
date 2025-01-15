@@ -322,7 +322,9 @@ pub mod test {
     #[allow(clippy::missing_panics_doc)]
     pub fn arb_fr() -> impl Strategy<Value = Fr> {
         any::<U256>().prop_map(|mut n| {
-            n %= uint!(52435875175126190479447740508185965837690552500527637822603658699938581184513_U256);
+            n %= uint!(
+                52435875175126190479447740508185965837690552500527637822603658699938581184513_U256
+            );
             Fr::from_repr(BigInteger256::from(n)).expect("n is smaller than modulus")
         })
     }

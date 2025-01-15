@@ -50,7 +50,7 @@ impl ErrorCode for SessionError {
 #[derive(Debug, Clone, Serialize)]
 pub struct IdToken {
     pub identity: Identity,
-    pub exp:      u64,
+    pub exp: u64,
 }
 
 impl IdToken {
@@ -65,9 +65,9 @@ impl IdToken {
 
 #[derive(Debug, Clone)]
 pub struct SessionInfo {
-    pub token:                 IdToken,
+    pub token: IdToken,
     // Specifies the last time the user pinged
-    pub last_ping_time:        Instant,
+    pub last_ping_time: Instant,
     // Indicates whether an early /lobby/try_contribute call is accepted.
     // (only allowed right after authentication)
     pub is_first_ping_attempt: bool,
