@@ -142,15 +142,12 @@ impl AuthState {
             .read()
             .await
             .users
-            .get(&auth_code).cloned()
+            .get(&auth_code)
+            .cloned()
     }
 
     pub async fn get_eth_user(&self, auth_code: u64) -> Option<EthUser> {
-        self.eth_users
-            .read()
-            .await
-            .users
-            .get(&auth_code).cloned()
+        self.eth_users.read().await.users.get(&auth_code).cloned()
     }
 }
 

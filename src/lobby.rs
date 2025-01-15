@@ -157,7 +157,6 @@ impl SharedLobbyState {
         &self,
         participant: &SessionId,
     ) -> Result<SessionInfo, ActiveContributorError> {
-
         match &self.inner.lock().await.active_contributor {
             ActiveContributor::AwaitingContribution {
                 session: info_with_id,
@@ -176,7 +175,6 @@ impl SharedLobbyState {
         &self,
         participant: &SessionId,
     ) -> Result<(), ActiveContributorError> {
-
         if !matches!(&self.inner.lock().await.active_contributor, ActiveContributor::AwaitingContribution { session: x, .. } if &x.id == participant)
         {
             return Err(ActiveContributorError::NotUsersTurn);
@@ -198,7 +196,8 @@ impl SharedLobbyState {
         let sessions_to_remove = lobby_state
             .sessions_in_lobby
             .iter()
-            .filter(|&(_id, info)| predicate(info)).map(|(id, _info)| id.clone())
+            .filter(|&(_id, info)| predicate(info))
+            .map(|(id, _info)| id.clone())
             .collect::<Vec<_>>();
         for id in sessions_to_remove {
             let info = lobby_state.sessions_in_lobby.remove(&id);
@@ -243,13 +242,17 @@ impl SharedLobbyState {
         session_id: SessionId,
         session_info: SessionInfo,
     ) -> Result<(), ActiveContributorError> {
-
         let is_active_contributor = match &self.inner.lock().await.active_contributor {
             ActiveContributor::None => false,
             ActiveContributor::AwaitingContribution { session: info, .. }
             | ActiveContributor::Contributing(info) => info.id == session_id,
         };
-        let is_in_lobby = self.inner.lock().await.sessions_in_lobby.contains_key(&session_id);
+        let is_in_lobby = self
+            .inner
+            .lock()
+            .await
+            .sessions_in_lobby
+            .contains_key(&session_id);
 
         if is_active_contributor || is_in_lobby {
             return Ok(());
@@ -268,7 +271,13 @@ impl SharedLobbyState {
     pub async fn enter_lobby(&self, session_id: &SessionId) -> Result<(), ActiveContributorError> {
         // If session is not in sessions_out_of_lobby, it was already moved to lobby or
         // to active contributor state
-        if let Some(session) = self.inner.lock().await.sessions_out_of_lobby.remove(session_id) {
+        if let Some(session) = self
+            .inner
+            .lock()
+            .await
+            .sessions_out_of_lobby
+            .remove(session_id)
+        {
             let lobby = &mut self.inner.lock().await.sessions_in_lobby;
 
             if lobby.len() >= self.options.max_lobby_size {

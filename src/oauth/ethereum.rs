@@ -72,14 +72,14 @@ impl Deref for EthOAuthClient {
 pub fn eth_oauth_client(options: &EthAuthOptions) -> EthOAuthClient {
     EthOAuthClient {
         client: BasicClient::new(
-            ClientId::new(options.eth_client_id.get_secret().to_owned()),
+            ClientId::new(options.client_id.get_secret().to_owned()),
             Some(ClientSecret::new(
-                options.eth_client_secret.get_secret().to_owned(),
+                options.client_secret.get_secret().to_owned(),
             )),
-            AuthUrl::new(options.eth_auth_url.clone()).unwrap(),
-            Some(TokenUrl::new(options.eth_token_url.clone()).unwrap()),
+            AuthUrl::new(options.auth_url.clone()).unwrap(),
+            Some(TokenUrl::new(options.token_url.clone()).unwrap()),
         )
-        .set_redirect_uri(RedirectUrl::new(options.eth_redirect_url.clone()).unwrap()),
+        .set_redirect_uri(RedirectUrl::new(options.redirect_url.clone()).unwrap()),
     }
 }
 

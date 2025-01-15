@@ -244,12 +244,12 @@ impl Builder {
     }
 
     pub fn set_gh_max_account_creation_time(mut self, time: DateTime<FixedOffset>) -> Self {
-        self.options.github.gh_max_account_creation_time = time;
+        self.options.github.max_account_creation_time = time;
         self
     }
 
     pub fn set_eth_min_nonce(mut self, min_nonce: u64) -> Self {
-        self.options.ethereum.eth_min_nonce = min_nonce;
+        self.options.ethereum.min_nonce = min_nonce;
         self
     }
 

@@ -297,7 +297,7 @@ mod tests {
         )
         .await;
 
-        assert!(matches!(result, Ok(_)));
+        assert!(result.is_ok());
         let transcript = read_json_file::<BatchTranscript>(cfg.transcript_file.clone())
             .await
             .unwrap();
@@ -323,7 +323,7 @@ mod tests {
         )
         .await;
 
-        assert!(matches!(result, Ok(_)));
+        assert!(result.is_ok());
         let transcript = read_json_file::<BatchTranscript>(cfg.transcript_file.clone())
             .await
             .unwrap();

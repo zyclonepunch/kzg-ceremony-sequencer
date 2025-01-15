@@ -149,8 +149,8 @@ fn g1_split(tau: Fr) -> (u128, u128) {
     let mut tau = tau.into_repr().0;
     let mut divisor = G1_LAMBDA_2;
     ruint::algorithms::div(&mut tau, &mut divisor);
-    let k0 = (divisor[0] as u128) | (divisor[1] as u128) << 64;
-    let k1 = (tau[0] as u128) | (tau[1] as u128) << 64;
+    let k0 = (divisor[0] as u128) | ((divisor[1] as u128) << 64);
+    let k1 = (tau[0] as u128) | ((tau[1] as u128) << 64);
     (k0, k1)
 }
 

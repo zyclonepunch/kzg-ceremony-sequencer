@@ -147,7 +147,8 @@ pub async fn write_json_file<T: Serialize + Send + Sync + 'static>(
             .truncate(true)
             .open(&work_path)
             .map_err(TranscriptIoError::IoError)?;
-        serde_json::to_writer_pretty(&f, &*data.blocking_read()).map_err(TranscriptIoError::SerializationError)?;
+        serde_json::to_writer_pretty(&f, &*data.blocking_read())
+            .map_err(TranscriptIoError::SerializationError)?;
         std::fs::rename(&work_path, &target_path).map_err(TranscriptIoError::IoError)?;
         Ok(())
     });

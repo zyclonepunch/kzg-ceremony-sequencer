@@ -69,7 +69,7 @@ pub async fn try_contribute(
     Extension(options): Extension<crate::Options>,
 ) -> Result<TryContributeResponse<BatchContribution>, TryContributeError> {
     let res = lobby_state
-        .modify_participant(&session_id, |mut info| {
+        .modify_participant(&session_id, |info| {
             let now = Instant::now();
             if !info.is_first_ping_attempt
                 && now < info.last_ping_time + options.lobby.min_checkin_delay()
@@ -203,8 +203,7 @@ mod tests {
 
         assert!(
             matches!(too_soon_response, Err(TryContributeError::RateLimited),),
-            "response expected: Err(TryContributeError::RateLimited) actual: {:?}",
-            too_soon_response
+            "response expected: Err(TryContributeError::RateLimited) actual: {too_soon_response:?}"
         );
 
         // "other participant" finished contributing

@@ -438,7 +438,7 @@ async fn test_large_lobby() {
     let harness = Arc::new(run_test_harness().await);
     let client = Arc::new(reqwest::Client::new());
 
-    let handles = (0..20).into_iter().map(|i| {
+    let handles = (0..20).map(|i| {
         let h = harness.clone();
         let c = client.clone();
         tokio::spawn(async move {
