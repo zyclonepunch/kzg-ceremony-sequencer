@@ -71,8 +71,7 @@ jobs:
       - name: Install rust
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          toolchain: nightly
           override: true
       - name: Upgrade Rust
         run: rustup default nightly
@@ -112,8 +111,7 @@ jobs:
       - name: Install rust
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          toolchain: nightly
           override: true
           components: llvm-tools-preview
       - name: Upgrade Rust
