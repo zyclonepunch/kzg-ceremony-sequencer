@@ -42,6 +42,8 @@ jobs:
           toolchain: ${{ env.NIGHTLY_VERSION }}
           override: true
           components: rustfmt, clippy
+      - name: Upgrade Rust
+        run: rustup default nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -77,6 +79,8 @@ jobs:
           profile: minimal
           toolchain: ${{ env.NIGHTLY_VERSION }}
           override: true
+      - name: Upgrade Rust
+        run: rustup default nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -117,6 +121,8 @@ jobs:
           toolchain: ${{ env.NIGHTLY_VERSION }}
           override: true
           components: llvm-tools-preview
+      - name: Upgrade Rust
+        run: rustup default nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -154,6 +160,8 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_VERSION }}
           default: true
+      - name: Upgrade Rust
+        run: rustup default nightly
       - uses: actions-rs/audit-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -179,6 +187,8 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_VERSION }}
           default: true
+      - name: Upgrade Rust
+        run: rustup default nightly
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
