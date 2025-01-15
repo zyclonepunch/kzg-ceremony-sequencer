@@ -154,7 +154,7 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_VERSION }}
           default: true
-      - run: cargo install cargo-audit --locked
+      - run: cargo install cargo-audit --version 0.17.6 --locked
       - run: cargo audit
 
   build_and_push:
