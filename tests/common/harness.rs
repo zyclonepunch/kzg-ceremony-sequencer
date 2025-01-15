@@ -15,7 +15,7 @@ use url::Url;
 
 fn test_options() -> Options {
     let args: Vec<&str> = vec![
-        "kzg-ceremony-sequencer",
+        "kzg-ceremony-sequencer-369",
         "--ceremony-sizes",
         "4,3:8,3:16,3",
         "--server",
