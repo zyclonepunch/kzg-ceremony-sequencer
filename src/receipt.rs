@@ -7,7 +7,7 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct Receipt {
     pub(crate) identity: Identity,
-    pub witness: Vec<G2>,
+    pub witness:         Vec<G2>,
 }
 
 impl Receipt {

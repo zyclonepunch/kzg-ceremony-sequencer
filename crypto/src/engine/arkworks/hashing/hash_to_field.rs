@@ -46,7 +46,7 @@ pub trait HashToField<F: Field>: Sized {
 /// function, like SHA2, SHA3 or Blake2.
 /// The implementation aims to follow the specification in [Hashing to Elliptic Curves (draft)](https://tools.ietf.org/pdf/draft-irtf-cfrg-hash-to-curve-13.pdf).
 pub struct DefaultFieldHasher<H: Default + DynDigest + Clone, const SEC_PARAM: usize = 128> {
-    expander: ExpanderXmd<H>,
+    expander:          ExpanderXmd<H>,
     len_per_base_elem: usize,
 }
 
@@ -59,8 +59,8 @@ impl<F: Field, H: Default + DynDigest + Clone, const SEC_PARAM: usize> HashToFie
         let len_per_base_elem = get_len_per_elem::<F, SEC_PARAM>();
 
         let expander = ExpanderXmd {
-            hasher: H::default(),
-            dst: dst.to_vec(),
+            hasher:     H::default(),
+            dst:        dst.to_vec(),
             block_size: len_per_base_elem,
         };
 

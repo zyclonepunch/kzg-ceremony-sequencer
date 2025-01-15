@@ -31,7 +31,7 @@ use url::Url;
 #[error("{payload}")]
 pub struct AuthError {
     pub redirect: Option<String>,
-    pub payload: AuthErrorPayload,
+    pub payload:  AuthErrorPayload,
 }
 
 #[derive(Debug, Error, IntoStaticStr)]
@@ -59,13 +59,13 @@ impl ErrorCode for AuthErrorPayload {
 }
 
 pub struct UserVerifiedResponse {
-    id_token: IdToken,
-    session_id: String,
+    id_token:       IdToken,
+    session_id:     String,
     as_redirect_to: Option<String>,
 }
 
 pub struct AuthUrl {
-    eth_auth_url: String,
+    eth_auth_url:    String,
     github_auth_url: String,
 }
 
@@ -158,7 +158,7 @@ pub async fn auth_client_link(
     let (gh_url, _) = gh_auth_request.url();
 
     Ok(AuthUrl {
-        eth_auth_url: auth_url.to_string(),
+        eth_auth_url:    auth_url.to_string(),
         github_auth_url: gh_url.to_string(),
     })
 }
@@ -170,13 +170,13 @@ pub async fn auth_client_link(
 // an identity provider
 #[derive(Debug, Deserialize)]
 pub struct RawAuthPayload {
-    code: String,
+    code:  String,
     state: String,
 }
 
 #[derive(Debug)]
 pub struct AuthPayload {
-    code: String,
+    code:        String,
     redirect_to: Option<String>,
 }
 
@@ -214,7 +214,7 @@ where
                     .into_response()
             })?;
         Ok(Self {
-            code: raw.code,
+            code:        raw.code,
             redirect_to: json_decoded_state.redirect,
         })
     }
@@ -222,8 +222,8 @@ where
 
 #[derive(Debug, Deserialize)]
 struct GhUserInfo {
-    id: u64,
-    login: String,
+    id:         u64,
+    login:      String,
     created_at: String,
 }
 
@@ -250,7 +250,7 @@ pub async fn github_callback(
             }
             AuthError {
                 redirect: payload.redirect_to.clone(),
-                payload: AuthErrorPayload::InvalidAuthCode,
+                payload:  AuthErrorPayload::InvalidAuthCode,
             }
         })?;
 
@@ -262,25 +262,25 @@ pub async fn github_callback(
         .await
         .map_err(|_| AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::FetchUserDataError,
+            payload:  AuthErrorPayload::FetchUserDataError,
         })?;
     let gh_user_info = response.json::<GhUserInfo>().await.map_err(|_| AuthError {
         redirect: payload.redirect_to.clone(),
-        payload: AuthErrorPayload::CouldNotExtractUserData,
+        payload:  AuthErrorPayload::CouldNotExtractUserData,
     })?;
     let creation_time =
         DateTime::parse_from_rfc3339(&gh_user_info.created_at).map_err(|_| AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::CouldNotExtractUserData,
+            payload:  AuthErrorPayload::CouldNotExtractUserData,
         })?;
     if creation_time > options.github.gh_max_account_creation_time {
         return Err(AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::UserCreatedAfterDeadline,
+            payload:  AuthErrorPayload::UserCreatedAfterDeadline,
         });
     }
     let user = Identity::Github {
-        id: gh_user_info.id,
+        id:       gh_user_info.id,
         username: gh_user_info.login.clone(),
     };
     post_authenticate(
@@ -324,7 +324,7 @@ pub async fn eth_callback(
         .await
         .map_err(|_| AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::InvalidAuthCode,
+            payload:  AuthErrorPayload::InvalidAuthCode,
         })?;
 
     let response = http_client
@@ -334,7 +334,7 @@ pub async fn eth_callback(
         .await
         .map_err(|_| AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::FetchUserDataError,
+            payload:  AuthErrorPayload::FetchUserDataError,
         })?;
 
     let eth_user = response
@@ -342,13 +342,13 @@ pub async fn eth_callback(
         .await
         .map_err(|_| AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::CouldNotExtractUserData,
+            payload:  AuthErrorPayload::CouldNotExtractUserData,
         })?;
 
     let addr_parts: Vec<_> = eth_user.sub.split(':').collect();
     let address = (*addr_parts.get(2).ok_or(AuthError {
         redirect: payload.redirect_to.clone(),
-        payload: AuthErrorPayload::CouldNotExtractUserData,
+        payload:  AuthErrorPayload::CouldNotExtractUserData,
     })?)
     .to_string();
 
@@ -363,20 +363,20 @@ pub async fn eth_callback(
         error!("Could not get tx count for {address}: {e}");
         AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::CouldNotExtractUserData,
+            payload:  AuthErrorPayload::CouldNotExtractUserData,
         }
     })?;
 
     if tx_count < options.ethereum.eth_min_nonce {
         return Err(AuthError {
             redirect: payload.redirect_to.clone(),
-            payload: AuthErrorPayload::UserCreatedAfterDeadline,
+            payload:  AuthErrorPayload::UserCreatedAfterDeadline,
         });
     }
 
     let user_data = Identity::eth_from_str(&address).map_err(|_| AuthError {
         redirect: payload.redirect_to.clone(),
-        payload: AuthErrorPayload::CouldNotExtractUserData,
+        payload:  AuthErrorPayload::CouldNotExtractUserData,
     })?;
 
     post_authenticate(
@@ -435,7 +435,7 @@ async fn post_authenticate(
         Err(error) => {
             return Err(AuthError {
                 redirect: redirect_to.clone(),
-                payload: AuthErrorPayload::Storage(error),
+                payload:  AuthErrorPayload::Storage(error),
             })
         }
         Ok(true) => {
@@ -444,7 +444,7 @@ async fn post_authenticate(
             } else {
                 return Err(AuthError {
                     redirect: redirect_to.clone(),
-                    payload: AuthErrorPayload::UserAlreadyContributed,
+                    payload:  AuthErrorPayload::UserAlreadyContributed,
                 });
             }
         }
@@ -470,22 +470,19 @@ async fn post_authenticate(
 
     let id_token = IdToken {
         identity: user_data,
-        exp: u64::MAX,
+        exp:      u64::MAX,
     };
 
     lobby_state
-        .insert_session(
-            session_id.clone(),
-            SessionInfo {
-                token: id_token.clone(),
-                last_ping_time: Instant::now(),
-                is_first_ping_attempt: true,
-            },
-        )
+        .insert_session(session_id.clone(), SessionInfo {
+            token:                 id_token.clone(),
+            last_ping_time:        Instant::now(),
+            is_first_ping_attempt: true,
+        })
         .await
         .map_err(|_| AuthError {
             redirect: redirect_to.clone(),
-            payload: AuthErrorPayload::LobbyIsFull,
+            payload:  AuthErrorPayload::LobbyIsFull,
         })?;
 
     Ok(UserVerifiedResponse {

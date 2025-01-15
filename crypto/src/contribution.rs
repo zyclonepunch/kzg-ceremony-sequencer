@@ -9,8 +9,8 @@ use tracing::instrument;
 #[serde(rename_all = "camelCase")]
 pub struct Contribution {
     #[serde(flatten)]
-    pub powers: Powers,
-    pub pot_pubkey: G2,
+    pub powers:        Powers,
+    pub pot_pubkey:    G2,
     pub bls_signature: BlsSignature,
 }
 
@@ -63,44 +63,44 @@ pub mod test {
 
     pub fn valid_contribution() -> Contribution {
         Contribution {
-            powers: Powers {
+            powers:        Powers {
                 g1: vec![G1::one()],
                 g2: vec![G2::one()],
             },
-            pot_pubkey: G2::one(),
+            pot_pubkey:    G2::one(),
             bls_signature: BlsSignature::empty(),
         }
     }
 
     pub fn invalid_g1_contribution() -> Contribution {
         Contribution {
-            powers: Powers {
+            powers:        Powers {
                 g1: vec![invalid_g1()],
                 g2: vec![G2::one()],
             },
-            pot_pubkey: G2::one(),
+            pot_pubkey:    G2::one(),
             bls_signature: BlsSignature::empty(),
         }
     }
 
     pub fn invalid_g2_contribution() -> Contribution {
         Contribution {
-            powers: Powers {
+            powers:        Powers {
                 g1: vec![G1::one()],
                 g2: vec![invalid_g2()],
             },
-            pot_pubkey: G2::one(),
+            pot_pubkey:    G2::one(),
             bls_signature: BlsSignature::empty(),
         }
     }
 
     pub fn invalid_pot_pubkey_contribution() -> Contribution {
         Contribution {
-            powers: Powers {
+            powers:        Powers {
                 g1: vec![G1::one()],
                 g2: vec![G2::one()],
             },
-            pot_pubkey: invalid_g2(),
+            pot_pubkey:    invalid_g2(),
             bls_signature: BlsSignature::empty(),
         }
     }
@@ -125,8 +125,8 @@ pub mod test {
     #[test]
     fn contribution_json() {
         let value = Contribution {
-            powers: Powers::new(2, 4),
-            pot_pubkey: G2::one(),
+            powers:        Powers::new(2, 4),
+            pot_pubkey:    G2::one(),
             bls_signature: BlsSignature::empty(),
         };
         let json = serde_json::to_value(&value).unwrap();

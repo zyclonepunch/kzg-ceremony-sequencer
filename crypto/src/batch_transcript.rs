@@ -9,8 +9,8 @@ use tracing::instrument;
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BatchTranscript {
-    pub transcripts: Vec<Transcript>,
-    pub participant_ids: Vec<Identity>,
+    pub transcripts:                  Vec<Transcript>,
+    pub participant_ids:              Vec<Identity>,
     pub participant_ecdsa_signatures: Vec<EcdsaSignature>,
 }
 
@@ -20,11 +20,11 @@ impl BatchTranscript {
         I: IntoIterator<Item = &'a (usize, usize)> + 'a,
     {
         Self {
-            transcripts: iter
+            transcripts:                  iter
                 .into_iter()
                 .map(|(num_g1, num_g2)| Transcript::new(*num_g1, *num_g2))
                 .collect(),
-            participant_ids: vec![Identity::None],
+            participant_ids:              vec![Identity::None],
             participant_ecdsa_signatures: vec![EcdsaSignature::empty()],
         }
     }
@@ -39,7 +39,7 @@ impl BatchTranscript {
     #[must_use]
     pub fn contribution(&self) -> BatchContribution {
         BatchContribution {
-            contributions: self
+            contributions:   self
                 .transcripts
                 .iter()
                 .map(Transcript::contribution)

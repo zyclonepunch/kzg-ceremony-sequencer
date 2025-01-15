@@ -102,14 +102,13 @@ pub fn g1_endomorphism(p: &G1Affine) -> G1Affine {
 #[inline]
 fn g2_endomorphism(p: &G2Affine) -> G2Affine {
     // The p-power endomorphism for G2 is defined as follows:
-    // 1. Note that G2 is defined on curve E': y^2 = x^3 + 4(u+1).
-    //    To map a point (x, y) in E' to (s, t) in E,
-    //    one set s = x / ((u+1) ^ (1/3)), t = y / ((u+1) ^ (1/2)),
-    //    because E: y^2 = x^3 + 4.
-    // 2. Apply the Frobenius endomorphism (s, t) => (s', t'),
-    //    another point on curve E, where s' = s^p, t' = t^p.
-    // 3. Map the point from E back to E'; that is,
-    //    one set x' = s' * ((u+1) ^ (1/3)), y' = t' * ((u+1) ^ (1/2)).
+    // 1. Note that G2 is defined on curve E': y^2 = x^3 + 4(u+1). To map a point
+    //    (x, y) in E' to (s, t) in E, one set s = x / ((u+1) ^ (1/3)), t = y /
+    //    ((u+1) ^ (1/2)), because E: y^2 = x^3 + 4.
+    // 2. Apply the Frobenius endomorphism (s, t) => (s', t'), another point on
+    //    curve E, where s' = s^p, t' = t^p.
+    // 3. Map the point from E back to E'; that is, one set x' = s' * ((u+1) ^
+    //    (1/3)), y' = t' * ((u+1) ^ (1/2)).
     //
     // To sum up, it maps
     // (x,y) -> (x^p / ((u+1)^((p-1)/3)), y^p / ((u+1)^((p-1)/2)))

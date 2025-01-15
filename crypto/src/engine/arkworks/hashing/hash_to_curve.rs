@@ -103,7 +103,7 @@ where
 {
     field_hasher: H2F,
     curve_mapper: M2C,
-    _params_t: PhantomData<T>,
+    _params_t:    PhantomData<T>,
 }
 
 impl<T, H2F, M2C> HashToCurve<T> for MapToCurveBasedHasher<T, H2F, M2C>
@@ -451,7 +451,7 @@ impl WBParams for G1Parameters {
 
 pub struct WBMap<P: WBParams> {
     swu_field_curve_hasher: SWUMap<P::IsogenousCurve>,
-    curve_params: PhantomData<fn() -> P>,
+    curve_params:           PhantomData<fn() -> P>,
 }
 
 impl<P: WBParams> MapToCurve<P> for WBMap<P>
@@ -476,7 +476,7 @@ where
 
         Ok(WBMap {
             swu_field_curve_hasher: SWUMap::<P::IsogenousCurve>::new().unwrap(),
-            curve_params: PhantomData,
+            curve_params:           PhantomData,
         })
     }
 

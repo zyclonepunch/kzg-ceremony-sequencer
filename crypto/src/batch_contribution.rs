@@ -12,7 +12,7 @@ use tracing::instrument;
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BatchContribution {
-    pub contributions: Vec<Contribution>,
+    pub contributions:   Vec<Contribution>,
     pub ecdsa_signature: EcdsaSignature,
 }
 
@@ -102,7 +102,7 @@ pub mod tests {
     #[test]
     fn test_validate() {
         let mut invalid = BatchContribution {
-            contributions: vec![
+            contributions:   vec![
                 valid_contribution(),
                 invalid_g2_contribution(),
                 valid_contribution(),
@@ -115,7 +115,7 @@ pub mod tests {
         ));
 
         let mut valid = BatchContribution {
-            contributions: vec![valid_contribution(), valid_contribution()],
+            contributions:   vec![valid_contribution(), valid_contribution()],
             ecdsa_signature: EcdsaSignature::empty(),
         };
         assert!(valid.validate::<DefaultEngine>().is_ok());

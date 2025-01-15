@@ -22,7 +22,7 @@ use tracing::error;
 
 #[derive(Serialize)]
 pub struct ContributeReceipt {
-    receipt: String,
+    receipt:   String,
     signature: Signature,
 }
 
@@ -108,7 +108,7 @@ pub async fn contribute(
 
         let receipt = Receipt {
             identity: id_token.identity,
-            witness: contribution.receipt(),
+            witness:  contribution.receipt(),
         };
 
         let (signed_msg, signature) = receipt
@@ -255,13 +255,10 @@ mod tests {
         let transcript_1 = {
             let mut transcript = transcript.clone();
             transcript
-                .verify_add::<Engine>(
-                    contribution_1.clone(),
-                    Identity::Github {
-                        id: 1234,
-                        username: "test_user".to_string(),
-                    },
-                )
+                .verify_add::<Engine>(contribution_1.clone(), Identity::Github {
+                    id:       1234,
+                    username: "test_user".to_string(),
+                })
                 .unwrap();
             transcript
         };
@@ -269,13 +266,10 @@ mod tests {
         let transcript_2 = {
             let mut transcript = transcript_1.clone();
             transcript
-                .verify_add::<Engine>(
-                    contribution_2.clone(),
-                    Identity::Github {
-                        id: 1234,
-                        username: "test_user".to_string(),
-                    },
-                )
+                .verify_add::<Engine>(contribution_2.clone(), Identity::Github {
+                    id:       1234,
+                    username: "test_user".to_string(),
+                })
                 .unwrap();
             transcript
         };

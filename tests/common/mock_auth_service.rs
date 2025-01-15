@@ -33,7 +33,7 @@ pub fn start_server(auth_state: AuthState) -> Server<AddrIncoming, IntoMakeServi
 
 #[derive(Default)]
 struct GhUsersState {
-    users: HashMap<u64, GhUser>,
+    users:   HashMap<u64, GhUser>,
     next_id: u64,
 }
 
@@ -48,7 +48,7 @@ impl GhUsersState {
 
 #[derive(Default)]
 struct EthUsersState {
-    users: HashMap<u64, EthUser>,
+    users:   HashMap<u64, EthUser>,
     next_id: u64,
 }
 
@@ -69,14 +69,14 @@ impl EthUsersState {
 
 #[derive(Clone, Debug, Serialize)]
 pub struct GhUser {
-    pub name: String,
+    pub name:       String,
     pub created_at: String,
 }
 
 #[derive(Clone, Debug)]
 pub struct EthUser {
     pub wallet: LocalWallet,
-    pub nonce: usize,
+    pub nonce:  usize,
 }
 
 impl EthUser {
@@ -93,7 +93,7 @@ pub enum AnyTestUser {
 
 #[derive(Clone, Debug)]
 pub struct TestUser {
-    pub id: u64,
+    pub id:   u64,
     pub user: AnyTestUser,
 }
 
@@ -117,7 +117,7 @@ impl TestUser {
 #[derive(Clone, Default)]
 pub struct AuthState {
     github_users: Arc<RwLock<GhUsersState>>,
-    eth_users: Arc<RwLock<EthUsersState>>,
+    eth_users:    Arc<RwLock<EthUsersState>>,
 }
 
 impl AuthState {

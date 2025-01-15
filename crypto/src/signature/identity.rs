@@ -186,7 +186,7 @@ mod tests {
     #[test]
     fn test_git() {
         let identity = Identity::Github {
-            id: 123,
+            id:       123,
             username: "username".to_string(),
         };
         assert_eq!(identity.to_string(), "git|123|username");

@@ -45,18 +45,18 @@ fn test_options() -> Options {
 }
 
 pub struct Harness {
-    pub options: Options,
-    pub auth_state: AuthState,
-    app_shutdown_sender: broadcast::Sender<()>,
+    pub options:          Options,
+    pub auth_state:       AuthState,
+    app_shutdown_sender:  broadcast::Sender<()>,
     auth_shutdown_sender: broadcast::Sender<()>,
     /// Needed to keep the lock on the server port for the duration of a test.
     #[allow(dead_code)]
-    lock: MutexGuard<'static, ()>,
+    lock:                 MutexGuard<'static, ()>,
     /// Needed to keep the temp directory alive throughout the test.
     #[allow(dead_code)]
-    temp_dir: TempDir,
-    app_handle: Option<tokio::task::JoinHandle<()>>,
-    auth_handle: Option<tokio::task::JoinHandle<()>>,
+    temp_dir:             TempDir,
+    app_handle:           Option<tokio::task::JoinHandle<()>>,
+    auth_handle:          Option<tokio::task::JoinHandle<()>>,
 }
 
 impl Harness {
