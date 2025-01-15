@@ -213,7 +213,7 @@ async fn test_gh_auth_errors_with_custom_frontend_redirect() {
         id:   12344,
         user: AnyTestUser::Gh(GhUser {
             name:       "foo".to_string(),
-            created_at: "2025-01-15T00:00:00Z".to_string(),
+            created_at: "2025-01-14T00:00:00Z".to_string(),
         }),
     };
     let auth_response =
