@@ -69,7 +69,7 @@ impl Harness {
     pub async fn create_gh_user(&self, name: String) -> TestUser {
         self.auth_state
             .register_gh_user(GhUser {
-                created_at: "2022-01-01T00:00:00Z".to_string(),
+                created_at: "2025-01-15T00:00:00Z".to_string(),
                 name,
             })
             .await
