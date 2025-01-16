@@ -37,7 +37,6 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - uses: dtolnay/rust-toolchain@1.66
         with:
-          target: "nightly"
           components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
@@ -70,12 +69,10 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
-        with:
-          target: nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1-66-nightly
+          key: cache-v1-66
       # Cargo doc test is not included in `--all-targets`
       # See <https://github.com/rust-lang/cargo/issues/6669>
       # Cargo doc test also doesn't support `--no-run`, so we run it but
@@ -108,7 +105,6 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          target: nightly
           components: llvm-tools-preview
       - name: Cache build
         uses: Swatinem/rust-cache@v1
@@ -143,8 +139,6 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
-        with:
-          target: nightly
       - run: cargo install cargo-audit --version 0.17.6 --locked
       - run: cargo audit
 
