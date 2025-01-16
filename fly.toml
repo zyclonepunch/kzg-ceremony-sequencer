@@ -6,7 +6,7 @@ kill_timeout = 30 # Seconds
 processes = []
 
 [build]
-    image = "ethereum/kzg-ceremony-sequencer:latest"
+    image = "zyclonepunch/kzg-ceremony-sequencer:latest"
 
 [[mounts]]
     source = "kzg_ceremony_sequencer_dev_data"

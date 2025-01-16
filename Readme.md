@@ -1,16 +1,16 @@
 # KZG Ceremony Rest API
 
-![lines of code](https://img.shields.io/tokei/lines/github/ethereum/kzg-ceremony-sequencer)
-[![dependency status](https://deps.rs/repo/github/ethereum/kzg-ceremony-sequencer/status.svg)](https://deps.rs/repo/github/ethereum/kzg-ceremony-sequencer)
-[![codecov](https://codecov.io/gh/ethereum/kzg-ceremony-sequencer/branch/main/graph/badge.svg?token=WBPZ9U4TTO)](https://codecov.io/gh/ethereum/kzg-ceremony-sequencer)
-[![CI](https://github.com/ethereum/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml/badge.svg)](https://github.com/ethereum/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml)
+![lines of code](https://img.shields.io/tokei/lines/github/zyclonepunch/kzg-ceremony-sequencer)
+[![dependency status](https://deps.rs/repo/github/zyclonepunch/kzg-ceremony-sequencer/status.svg)](https://deps.rs/repo/github/zyclonepunch/kzg-ceremony-sequencer)
+[![codecov](https://codecov.io/gh/zyclonepunch/kzg-ceremony-sequencer/branch/main/graph/badge.svg?token=WBPZ9U4TTO)](https://codecov.io/gh/zyclonepunch/kzg-ceremony-sequencer)
+[![CI](https://github.com/zyclonepunch/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml/badge.svg)](https://github.com/zyclonepunch/kzg-ceremony-sequencer/actions/workflows/build-test-deploy.yml)
 
 This implements [KZG Ceremony Specification](https://github.com/ethereum/kzg-ceremony-specs).
 
-The latest build is available as a container on [ethereum/kzg-ceremony-sequencer](https://hub.docker.com/repository/docker/ethereum/kzg-ceremony-sequencer/general):
+The latest build is available as a container on [zyclonepunch/kzg-ceremony-sequencer](https://hub.docker.com/repository/docker/zyclonepunch/kzg-ceremony-sequencer/general):
 
 ```shell
-docker run ethereum/kzg-ceremony-sequencer:latest
+docker run zyclonepunch/kzg-ceremony-sequencer:latest
 ```
 
 ## Setup
