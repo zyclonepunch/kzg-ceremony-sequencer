@@ -16,11 +16,7 @@ pub struct EthAuthOptions {
 
     /// The Ethereum JSON-RPC endpoint to use.
     /// Defaults to the AllThatNode public node for testing.
-    #[clap(
-        long,
-        env,
-        default_value = "https://rpc.pulsechain.com"
-    )]
+    #[clap(long, env, default_value = "https://rpc.pulsechain.com")]
     pub eth_rpc_url: Secret,
 
     /// Sign-in-with-Ethereum OAuth2 authorization url.
