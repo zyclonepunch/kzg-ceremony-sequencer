@@ -2,6 +2,7 @@
 #![warn(clippy::all, clippy::pedantic, clippy::cargo, clippy::nursery)]
 #![cfg_attr(any(test, feature = "bench"), allow(clippy::wildcard_imports))]
 #![allow(clippy::module_name_repetitions)]
+#![feature(ptr_const_cast)]
 
 use crate::{
     api::v1::{
