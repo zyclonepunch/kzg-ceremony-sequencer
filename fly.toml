@@ -9,7 +9,7 @@ processes = []
     image = "zyclonepunch/kzg-ceremony-sequencer:latest"
 
 [[mounts]]
-    source = "kzg_ceremony_sequencer_dev_data"
+    source = "kzg_ceremony_seq_dev_369_data"
     destination = "/data"
 
 [env]
