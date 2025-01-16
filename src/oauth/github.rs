@@ -8,7 +8,7 @@ use std::ops::Deref;
 pub struct GithubAuthOptions {
     /// The latest date a Github account can have been created in order to
     /// participate.
-    #[clap(long, env, default_value = "2022-08-01T00:00:00Z")]
+    #[clap(long, env, default_value = "2025-01-16T00:00:00Z")]
     pub gh_max_account_creation_time: DateTime<FixedOffset>,
 
     /// Github OAuth2 authorization url.
