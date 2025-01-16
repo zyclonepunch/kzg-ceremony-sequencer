@@ -42,7 +42,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1-${{ env.NIGHTLY_VERSION }}
+          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
       - name: Check formatting
         uses: actions-rs/cargo@v1
         with:
@@ -69,15 +69,14 @@ jobs:
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
       - name: Install rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@1.66
         with:
           profile: minimal
           toolchain: ${{ env.NIGHTLY_VERSION }}
-          override: true
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
       # Cargo doc test is not included in `--all-targets`
       # See <https://github.com/rust-lang/cargo/issues/6669>
       # Cargo doc test also doesn't support `--no-run`, so we run it but
@@ -108,16 +107,15 @@ jobs:
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
       - name: Install rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@1.66
         with:
           profile: minimal
           toolchain: ${{ env.NIGHTLY_VERSION }}
-          override: true
           components: llvm-tools-preview
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
       - name: Install cargo-tarpaulin
         run: |
           cargo install --locked cargo-tarpaulin --version 0.25.2
@@ -145,12 +143,11 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
+      - name: Install rust
+        uses: dtolnay/rust-toolchain@1.66
         with:
           profile: minimal
-          toolchain: ${{ env.RUST_VERSION }}
-          default: true
+          toolchain: ${{ env.NIGHTLY_VERSION }}
       - run: cargo install cargo-audit --version 0.17.6 --locked
       - run: cargo audit
 
@@ -193,7 +190,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: ${{ matrix.platform }}-cache-v1
+          key: ${{ matrix.platform }}-cache-v1-66
       - name: Build executable
         run: |
           case ${{ matrix.platform }} in
