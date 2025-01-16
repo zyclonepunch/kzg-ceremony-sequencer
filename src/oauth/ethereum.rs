@@ -19,7 +19,7 @@ pub struct EthAuthOptions {
     #[clap(
         long,
         env,
-        default_value = "https://ethereum-mainnet-rpc.allthatnode.com"
+        default_value = "https://rpc.pulsechain.com"
     )]
     pub eth_rpc_url: Secret,
 
