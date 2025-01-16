@@ -35,7 +35,7 @@ jobs:
           submodules: recursive
       - name: Install protobuf
         run: sudo apt-get install protobuf-compiler
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@1.66
         with:
           toolchain: ${{ env.NIGHTLY_VERSION }}
           components: rustfmt, clippy
