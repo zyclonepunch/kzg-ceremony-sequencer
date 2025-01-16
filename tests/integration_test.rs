@@ -210,9 +210,9 @@ async fn test_gh_auth_errors_with_custom_frontend_redirect() {
     )
     .await;
     let invalid_user = TestUser {
-        id:   12344,
+        id: 12344,
         user: AnyTestUser::Gh(GhUser {
-            name:       "foo".to_string(),
+            name: "foo".to_string(),
             created_at: "2022-01-01T00:00:00Z".to_string(),
         }),
     };

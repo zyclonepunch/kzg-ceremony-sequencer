@@ -7,7 +7,7 @@ on:
 
 env:
   RUST_VERSION: "1.66"
-  NIGHTLY_VERSION: nightly
+  NIGHTLY_VERSION: nightly-2022-10-08
   CARGO_TERM_COLOR: always
   # Skip incremental build and debug info generation in CI
   CARGO_INCREMENTAL: 0
@@ -42,7 +42,7 @@ jobs:
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1
+          key: cache-v1-${{ env.NIGHTLY_VERSION }}
       - name: Check formatting
         uses: actions-rs/cargo@v1
         with:

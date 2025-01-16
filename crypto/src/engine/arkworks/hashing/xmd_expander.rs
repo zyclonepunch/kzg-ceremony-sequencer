@@ -34,8 +34,8 @@ const MAX_DST_LENGTH: usize = 255;
 const LONG_DST_PREFIX: &[u8; 17] = b"H2C-OVERSIZE-DST-";
 
 pub(super) struct ExpanderXmd<T: DynDigest + Clone> {
-    pub(super) hasher:     T,
-    pub(super) dst:        Vec<u8>,
+    pub(super) hasher: T,
+    pub(super) dst: Vec<u8>,
     pub(super) block_size: usize,
 }
 
