@@ -6,7 +6,7 @@ on:
   - workflow_dispatch
 
 env:
-  RUST_VERSION: "nightly-2022-08-10"
+  RUST_VERSION: "1.66"
   NIGHTLY_VERSION: nightly-2022-08-10
   CARGO_TERM_COLOR: always
   # Skip incremental build and debug info generation in CI
@@ -263,7 +263,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           # Access token `kzg-ceremony-sequencer-github-actions`
-          username: zyclonepunch
+          username: carlbeek
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push commit tag
         run: |
