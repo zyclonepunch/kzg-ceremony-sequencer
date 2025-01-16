@@ -37,7 +37,7 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - uses: dtolnay/rust-toolchain@1.66
         with:
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          target: ${{ env.NIGHTLY_VERSION }}
           components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
@@ -71,8 +71,7 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          profile: minimal
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          target: ${{ env.NIGHTLY_VERSION }}
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
@@ -109,8 +108,7 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          profile: minimal
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          target: ${{ env.NIGHTLY_VERSION }}
           components: llvm-tools-preview
       - name: Cache build
         uses: Swatinem/rust-cache@v1
@@ -146,8 +144,7 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          profile: minimal
-          toolchain: ${{ env.NIGHTLY_VERSION }}
+          target: ${{ env.NIGHTLY_VERSION }}
       - run: cargo install cargo-audit --version 0.17.6 --locked
       - run: cargo audit
 
@@ -169,9 +166,7 @@ jobs:
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
           toolchain: ${{ env.RUST_VERSION }}
-          default: true
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
