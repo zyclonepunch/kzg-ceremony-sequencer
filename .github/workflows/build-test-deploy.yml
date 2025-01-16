@@ -37,12 +37,12 @@ jobs:
         run: sudo apt-get install protobuf-compiler
       - uses: dtolnay/rust-toolchain@1.66
         with:
-          target: ${{ env.NIGHTLY_VERSION }}
+          target: "nightly"
           components: rustfmt, clippy
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
+          key: cache-v1-66-nightly
       - name: Check formatting
         uses: actions-rs/cargo@v1
         with:
@@ -71,11 +71,11 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          target: ${{ env.NIGHTLY_VERSION }}
+          target: nightly
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
+          key: cache-v1-66-nightly
       # Cargo doc test is not included in `--all-targets`
       # See <https://github.com/rust-lang/cargo/issues/6669>
       # Cargo doc test also doesn't support `--no-run`, so we run it but
@@ -108,12 +108,12 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          target: ${{ env.NIGHTLY_VERSION }}
+          target: nightly
           components: llvm-tools-preview
       - name: Cache build
         uses: Swatinem/rust-cache@v1
         with:
-          key: cache-v1-66-${{ env.NIGHTLY_VERSION }}
+          key: cache-v1-66-nightly
       - name: Install cargo-tarpaulin
         run: |
           cargo install --locked cargo-tarpaulin --version 0.25.2
@@ -144,7 +144,7 @@ jobs:
       - name: Install rust
         uses: dtolnay/rust-toolchain@1.66
         with:
-          target: ${{ env.NIGHTLY_VERSION }}
+          target: nightly
       - run: cargo install cargo-audit --version 0.17.6 --locked
       - run: cargo audit
 
