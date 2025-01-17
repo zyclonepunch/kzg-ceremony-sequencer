@@ -24,8 +24,8 @@ processes = []
 
 # ❯ fly secrets list
 # NAME                    DIGEST                  CREATED AT
-# ETH_CLIENT_ID           74bcb233d36e68c3        2025-01-16T17:49:00Z
-# ETH_CLIENT_SECRET       96aa8e7d4c3066e6        2025-01-16T17:49:00Z
+# ETH_CLIENT_ID           490c65a6cd74f540        2025-01-16T17:49:00Z
+# ETH_CLIENT_SECRET       4bde0a26e498b89a        2025-01-16T17:49:00Z
 # ETH_RPC_URL             22aa2020cdb847b8        2025-01-16T17:49:00Z
 # GH_CLIENT_ID            c45b86b2685ea585        2025-01-16T17:49:00Z
 # GH_CLIENT_SECRET        6c82c79e465bf69b        2025-01-16T17:49:00Z
