@@ -6,7 +6,7 @@ use std::{num::ParseIntError, ops::Deref};
 #[derive(Clone, Debug, PartialEq, Eq, Parser)]
 pub struct EthAuthOptions {
     /// The block height where the users nonce is fetched from.
-    #[clap(long, env, value_parser = dec_to_hex, default_value = "22462000")]
+    #[clap(long, env, value_parser = dec_to_hex, default_value = "21600000")]
     pub eth_nonce_verification_block: String,
 
     /// The minimum nonce required at the specified block height in order to
@@ -16,7 +16,7 @@ pub struct EthAuthOptions {
 
     /// The Ethereum JSON-RPC endpoint to use.
     /// Defaults to the AllThatNode public node for testing.
-    #[clap(long, env, default_value = "https://rpc.pulsechain.com")]
+    #[clap(long, env, default_value = "https://rpc-ethereum.g4mm4.io")]
     pub eth_rpc_url: Secret,
 
     /// Sign-in-with-Ethereum OAuth2 authorization url.
